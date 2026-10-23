@@ -86,3 +86,37 @@ class ApiTests(unittest.TestCase):
         no = respond("Explain photosynthesis for fifth graders")
         self.assertFalse(no["answered"])
         self.assertEqual(no["matches"], [])
+
+
+class PhrasingTests(unittest.TestCase):
+    """The same thing typed different ways must be understood the same way."""
+
+    def test_phrasings(self):
+        from tutor.retrieve import search
+        bad = []
+        for line in (ROOT / "eval" / "phrasing.jsonl").read_text().splitlines():
+            p = json.loads(line)
+            hits, info = search(p["q"])
+            if info["grade_filter"] != p["grade"] or info["code"] != p["code"]:
+                bad.append((p["q"], info["grade_filter"], info["code"]))
+        self.assertEqual(bad, [])
+
+    def test_same_phrasings_give_same_top_results(self):
+        from tutor.retrieve import search
+        base = [h.teks_code for h in search("fifth grade rounding decimals")[0]][:3]
+        for q in ["5th grade rounding decimals", "grade 5 rounding decimals", "Gr. 5 rounding decimals", "G5 rounding decimals"]:
+            self.assertEqual([h.teks_code for h in search(q)[0]][:3], base, q)
+
+    def test_code_lookup_and_decimals(self):
+        from tutor.retrieve import search
+        hits, info = search("TEKS 5.3A math")
+        self.assertEqual([h.teks_code for h in hits], ["MATH 5.3A"])
+        hits, info = search("add 5.3 and 2.1 decimals")
+        self.assertIsNone(info["code"])
+
+    def test_spelling_fix_is_reported_not_silent(self):
+        from tutor.retrieve import search
+        hits, info = search("fifth grade multiplicaton")
+        self.assertEqual(info["corrected"], [("multiplicaton", "multiplication")])
+        hits, info = search("fifth grade xylophonic quantum")
+        self.assertEqual(info["corrected"], [])
