@@ -100,14 +100,25 @@ def main() -> None:
     th = json.loads(THRESHOLDS.read_text()) if THRESHOLDS.exists() else {"min_coverage": 0.0, "min_score": 0.0, "min_vocab": 0.0}
     rd, rt = run(dev, th), run(test, th)
     md, mt = metrics(rd), metrics(rt)
+    n_std = sum(1 for _ in open(Path(__file__).resolve().parent.parent / "data" / "standards.jsonl"))
     lines = [
         "# Evaluation results", "",
-        "Retrieval baseline: BM25 (SQLite FTS5) over 288 K-5 Texas math standards. Extractive answers.",
+        f"Retrieval baseline: BM25 (SQLite FTS5) over {n_std} K-5 Texas standards in 10 subjects (TEA TEKS, revised June 2024). Extractive answers.",
         f"Decline thresholds (tuned on dev only): `{json.dumps(th)}`", "",
         f"**Dev** ({md['answerable']} answerable, {md['unanswerable']} unanswerable): {fmt(md)}", "",
         f"**Held-out test** ({mt['answerable']} answerable, {mt['unanswerable']} unanswerable): {fmt(mt)}", "",
-        "## Test-set misses", "",
+        "## By subject (dev and test combined, answerable questions only)", "",
+        "| Subject | Questions | hit@1 | hit@3 |", "|---|---|---|---|",
     ]
+    subj: dict[str, list] = {}
+    for r in rd + rt:
+        if r["expected"]:
+            subj.setdefault(r["expected"][0].split()[0], []).append(r)
+    for k in sorted(subj):
+        rs = subj[k]
+        lines.append(f"| {k} | {len(rs)} | {sum(1 for r in rs if r['rank'] == 1) / len(rs):.0%} | "
+                     f"{sum(1 for r in rs if r['rank'] and r['rank'] <= 3) / len(rs):.0%} |")
+    lines += ["", "## Test-set misses", ""]
     miss = [r for r in rt if (r["expected"] and not (r["answered"] and r["rank"] == 1)) or (not r["expected"] and r["answered"])]
     if not miss:
         lines.append("None.")
@@ -115,7 +126,8 @@ def main() -> None:
         kind = "should decline" if not r["expected"] else f"expected {r['expected']}"
         lines.append(f"- {r['id']} \"{r['question']}\" -> top {r['codes'][:3]}, answered={r['answered']} ({kind})")
     lines += ["", "## Caveats", "",
-              "- 52 questions written by one author from the standards text; expected answers need a teacher's review.",
+              f"- {len(rows)} questions written by one author from the standards text; expected answers need a teacher's review.",
+              "- Several subjects have only 3 to 6 questions: treat their per-subject numbers as a smoke test, not a measurement.",
               "- Small sample: treat percentages as directional, not precise.",
               "- Keyword retrieval cannot match meaning when no words overlap; that is what embeddings are for."]
     RESULTS.write_text("\n".join(lines) + "\n", encoding="utf-8")

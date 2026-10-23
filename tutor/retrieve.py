@@ -35,6 +35,32 @@ def detect_grade(question: str) -> str | None:
     return None
 
 
+SUBJECT_WORDS = [
+    ("MATH", r"\bmath(?:ematics)?\b"),
+    ("ELAR", r"\b(?:ela|elar|reading|writing|english language arts|phonics|spelling|literacy)\b"),
+    ("SCI", r"\bscience\b"),
+    ("SS", r"\bsocial studies\b"),
+    ("HEALTH", r"\bhealth\b"),
+    ("PE", r"\b(?:physical education|p\.?e\.?)\b"),
+    ("ART", r"\bart\b"),
+    ("MUSIC", r"\bmusic\b"),
+    ("THEATRE", r"\b(?:theatre|theater|drama)\b"),
+    ("TECH", r"\b(?:technology applications|computer science|coding|programming)\b"),
+]
+
+
+def detect_subject(question: str) -> tuple[str | None, str]:
+    """Return (subject, question with the matched subject words removed). One subject only: if the
+    question names several, no filter is applied."""
+    q = question.lower()
+    found = [(code, re.search(rx, q)) for code, rx in SUBJECT_WORDS]
+    found = [(c, m) for c, m in found if m]
+    if len(found) != 1:
+        return None, question
+    code, m = found[0]
+    return code, (q[:m.start()] + " " + q[m.end():])
+
+
 def tokens(question: str) -> list[str]:
     toks = re.findall(r"[a-z0-9]+", question.lower())
     return [t for t in toks if t not in STOP and len(t) > 1 or t.isdigit()]
@@ -51,6 +77,8 @@ def stem(tok: str) -> str:
 @dataclass
 class Hit:
     id: str
+    subject: str
+    subject_name: str
     teks_code: str
     citation: str
     grade: str
@@ -84,8 +112,9 @@ def load_thresholds() -> dict:
 def search(question: str, k: int = 5, db=None) -> tuple[list[Hit], dict]:
     con = db or connect()
     grade = detect_grade(question)
-    toks = tokens(question)
-    info = {"grade_filter": grade, "query_terms": toks}
+    subject, rest = detect_subject(question)
+    toks = tokens(rest)
+    info = {"grade_filter": grade, "subject_filter": subject, "query_terms": toks}
     if not toks:
         return [], info
     match = " OR ".join(f'"{t}"' for t in dict.fromkeys(toks))
@@ -95,6 +124,9 @@ def search(question: str, k: int = 5, db=None) -> tuple[list[Hit], dict]:
     if grade:
         sql += " AND s.grade = ?"
         args.append(grade)
+    if subject:
+        sql += " AND s.subject = ?"
+        args.append(subject)
     sql += " ORDER BY rank LIMIT ?"
     args.append(k)
     qstems = {stem(t) for t in toks}
@@ -103,7 +135,7 @@ def search(question: str, k: int = 5, db=None) -> tuple[list[Hit], dict]:
     for r in con.execute(sql, args):
         words = {stem(w) for w in re.findall(r"[a-z0-9]+", (r["text"] + " " + r["strand_text"]).lower())}
         cov = len(qstems & words) / len(qstems)
-        hits.append(Hit(r["id"], r["teks_code"], r["citation"], r["grade"], r["strand"], r["text"],
+        hits.append(Hit(r["id"], r["subject"], r["subject_name"], r["teks_code"], r["citation"], r["grade"], r["strand"], r["text"],
                         r["strand_text"], r["source"], -r["rank"], cov, vocab))
     return hits, info
 

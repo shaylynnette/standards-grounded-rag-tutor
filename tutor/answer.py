@@ -3,13 +3,14 @@ so every sentence is grounded by construction. A language-model generator can be
 through the Generator interface; it must receive only the retrieved passages."""
 from __future__ import annotations
 
+import re
 from dataclasses import dataclass, field
 from typing import Protocol
 
 from .retrieve import Hit, can_answer, search
 
-DECLINE = ("I can't find that in the Texas elementary math standards (kindergarten to grade 5) that I "
-           "have. Try naming a grade and a math topic, for example: \"fifth grade rounding decimals\".")
+DECLINE = ("I can't find that in the Texas elementary standards (kindergarten to grade 5) that I have. "
+           "Try naming a grade and a topic, for example: \"fifth grade rounding decimals\" or \"third grade science energy\".")
 
 
 class Generator(Protocol):
@@ -20,10 +21,10 @@ class ExtractiveGenerator:
     def generate(self, question: str, passages: list[Hit]) -> str:
         top = passages[0]
         grade = "Kindergarten" if top.grade == "K" else f"Grade {top.grade}"
-        body = top.text.rstrip(";.") if top.text != top.strand_text else top.text
-        lines = [f"{grade} math, {top.teks_code} ({top.citation}): the student is expected to {body}."
-                 if top.text != top.strand_text else f"{grade} math, {top.teks_code} ({top.citation}): {body}"]
-        for h in passages[1:3]:
+        body = re.sub(r"[;,]?\s+(and|or)$", "", top.text.rstrip(";.")).rstrip(";.") if top.text != top.strand_text else top.text
+        lines = [f"{grade} {top.subject_name}, {top.teks_code} ({top.citation}): the student is expected to {body}."
+                 if top.text != top.strand_text else f"{grade} {top.subject_name}, {top.teks_code} ({top.citation}): {body}"]
+        for h in [p for p in passages[1:] if p.subject == top.subject][:2]:
             lines.append(f"Related: {h.teks_code} ({h.citation})")
         return "\n".join(lines)
 

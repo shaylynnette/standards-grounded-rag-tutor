@@ -22,10 +22,10 @@ def respond(question: str) -> dict:
         "answered": r.answered,
         "answer": r.answer,
         "citations": r.citations,
-        "matches": [{"teks_code": h.teks_code, "citation": h.citation, "grade": h.grade,
+        "matches": [{"teks_code": h.teks_code, "subject": h.subject_name, "citation": h.citation, "grade": h.grade,
                      "strand": h.strand, "text": h.text, "score": round(h.score, 2)} for h in r.hits[:3]]
         if r.answered else [],
-        "source": "19 TAC Chapter 111, Subchapter A (TEA; published for information only)",
+        "source": "Texas Essential Knowledge and Skills, K-5, revised June 2024 (TEA; published for information only)",
     }
 
 

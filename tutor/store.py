@@ -21,10 +21,10 @@ def build(db_path: Path = DEFAULT_DB, jsonl: Path = DEFAULT_JSONL) -> int:
     for line in Path(jsonl).read_text(encoding="utf-8").splitlines():
         r = json.loads(line)
         cur = con.execute(
-            "INSERT INTO standards (id, teks_code, citation, grade, section, strand_number,"
-            " strand, strand_text, text, source) VALUES (?,?,?,?,?,?,?,?,?,?)",
-            (r["id"], r["teks_code"], r["citation"], r["grade"], r["section"],
-             r["strand_number"], r["strand"], r["strand_text"], r["text"], r["source"]))
+            "INSERT INTO standards (id, subject, subject_name, adopted, teks_code, citation, grade, section,"
+            " strand_number, strand, strand_text, text, source) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?)",
+            (r["id"], r["subject"], r["subject_name"], r["adopted"], r["teks_code"], r["citation"], r["grade"],
+             r["section"], r["strand_number"], r["strand"], r["strand_text"], r["text"], r["source"]))
         con.execute("INSERT INTO standards_fts (rowid, text, strand_text) VALUES (?,?,?)",
                     (cur.lastrowid, r["text"], r["strand_text"]))
         n += 1

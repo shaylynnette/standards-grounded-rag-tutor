@@ -1,52 +1,92 @@
-{"id": "q01", "split": "dev", "question": "What do third graders learn about equivalent fractions?", "expected": ["3.3F", "3.3G"]}
-{"id": "q02", "split": "dev", "question": "Which standard covers multiplying a three-digit number by a two-digit number?", "expected": ["5.3B"]}
-{"id": "q03", "split": "dev", "question": "Where do fourth graders learn to use a protractor?", "expected": ["4.7C"]}
-{"id": "q04", "split": "dev", "question": "Which kindergarten standard is about identifying coins?", "expected": ["K.4"]}
-{"id": "q05", "split": "dev", "question": "How do second graders tell time to the minute?", "expected": ["2.9G"]}
-{"id": "q06", "split": "dev", "question": "Fifth grade standards about the volume of a box", "expected": ["5.6A", "5.6B", "5.4G"]}
-{"id": "q07", "split": "dev", "question": "Which standard is about prime and composite numbers?", "expected": ["5.4A"]}
-{"id": "q08", "split": "dev", "question": "Adding fractions with unlike denominators", "expected": ["5.3H"]}
-{"id": "q09", "split": "dev", "question": "What do first graders learn about halves and fourths?", "expected": ["1.6G", "1.6H"]}
-{"id": "q10", "split": "dev", "question": "Rounding whole numbers to a given place value in fourth grade", "expected": ["4.2D"]}
-{"id": "q11", "split": "dev", "question": "Teaching kindergarteners the difference between wants and needs", "expected": ["K.9D"]}
-{"id": "q12", "split": "dev", "question": "Finding the perimeter of a polygon when a side length is missing", "expected": ["3.7B"]}
-{"id": "q13", "split": "dev", "question": "Area of rectangles in third grade", "expected": ["3.6C", "3.6D"]}
-{"id": "q14", "split": "dev", "question": "Graphing ordered pairs in the first quadrant", "expected": ["5.8B", "5.8C", "5.8A"]}
-{"id": "q15", "split": "dev", "question": "Balancing a budget in fifth grade", "expected": ["5.10E", "5.10F"]}
-{"id": "q16", "split": "dev", "question": "Skip counting by twos, fives and tens in first grade", "expected": ["1.5B", "1.4C"]}
-{"id": "q17", "split": "dev", "question": "Even and odd numbers in second grade", "expected": ["2.7A"]}
-{"id": "q18", "split": "dev", "question": "Recalling multiplication facts up to 10 by 10", "expected": ["3.4F"]}
-{"id": "q19", "split": "dev", "question": "Frequency tables and dot plots in grade 4", "expected": ["4.9A", "4.9B"]}
-{"id": "q20", "split": "dev", "question": "Decimals to the hundredths on a number line in fourth grade", "expected": ["4.2H", "4.3G"]}
-{"id": "q21", "split": "dev", "question": "What is the capital of Texas?", "expected": null}
-{"id": "q22", "split": "dev", "question": "How do I teach reading comprehension to second graders?", "expected": null}
-{"id": "q23", "split": "dev", "question": "Explain photosynthesis for fifth graders", "expected": null}
-{"id": "q24", "split": "dev", "question": "What is the slope of a line?", "expected": null}
-{"id": "q25", "split": "dev", "question": "Which standard covers solving quadratic equations?", "expected": null}
-{"id": "q26", "split": "dev", "question": "Who wrote the Texas constitution?", "expected": null}
-{"id": "q27", "split": "test", "question": "How do fifth graders round decimals?", "expected": ["5.2C"]}
-{"id": "q28", "split": "test", "question": "Dividing a unit fraction by a whole number", "expected": ["5.3J", "5.3L"]}
-{"id": "q29", "split": "test", "question": "Which standard is about lines of symmetry?", "expected": ["4.6B"]}
-{"id": "q30", "split": "test", "question": "What do kindergarteners learn about comparing groups of objects up to twenty?", "expected": ["K.2G", "K.2H"]}
-{"id": "q31", "split": "test", "question": "Solving addition word problems with an unknown number in first grade", "expected": ["1.5F", "1.5D"]}
-{"id": "q32", "split": "test", "question": "Converting between measurement units in fourth grade", "expected": ["4.8B"]}
-{"id": "q33", "split": "test", "question": "Estimating sums by rounding or using compatible numbers in third grade", "expected": ["3.4B"]}
-{"id": "q34", "split": "test", "question": "Second grade counting a collection of coins up to one dollar", "expected": ["2.5A", "2.5B"]}
-{"id": "q35", "split": "test", "question": "What is the difference between gross income and net income?", "expected": ["5.10B"]}
-{"id": "q36", "split": "test", "question": "Standards about parallel and perpendicular lines", "expected": ["4.6A", "4.6D"]}
-{"id": "q37", "split": "test", "question": "Bar graphs with a scale in third grade", "expected": ["3.8A"]}
-{"id": "q38", "split": "test", "question": "Dividing by a two-digit divisor", "expected": ["5.3C", "5.3G"]}
-{"id": "q39", "split": "test", "question": "What is a unit cube?", "expected": ["5.6A"]}
-{"id": "q40", "split": "test", "question": "Adding and subtracting time intervals in minutes", "expected": ["3.7C"]}
-{"id": "q41", "split": "test", "question": "Kindergarten counting forward and backward to 20", "expected": ["K.2A"]}
-{"id": "q42", "split": "test", "question": "Borrowing and lending in second grade", "expected": ["2.11D", "2.11E"]}
-{"id": "q43", "split": "test", "question": "Classifying two-dimensional figures in a hierarchy of sets and subsets", "expected": ["5.5"]}
-{"id": "q44", "split": "test", "question": "Using strip diagrams to model multi-step problems", "expected": ["4.5A", "3.5B"]}
-{"id": "q45", "split": "test", "question": "Input-output tables and number patterns", "expected": ["4.5B"]}
-{"id": "q46", "split": "test", "question": "Writing a number with the cent symbol", "expected": ["1.4B"]}
-{"id": "q47", "split": "test", "question": "What is the history of the Alamo?", "expected": null}
-{"id": "q48", "split": "test", "question": "Explain the Pythagorean theorem", "expected": null}
-{"id": "q49", "split": "test", "question": "How do I convert Celsius to Fahrenheit?", "expected": null}
-{"id": "q50", "split": "test", "question": "What are good phonics activities for first grade?", "expected": null}
-{"id": "q51", "split": "test", "question": "How many questions are on the STAAR reading test?", "expected": null}
-{"id": "q52", "split": "test", "question": "Which standard covers photosynthesis and plant life cycles?", "expected": null}
+{"id": "q01", "split": "dev", "question": "What do third graders learn about equivalent fractions?", "expected": ["MATH 3.3F", "MATH 3.3G"]}
+{"id": "q02", "split": "dev", "question": "Which standard covers multiplying a three-digit number by a two-digit number?", "expected": ["MATH 5.3B"]}
+{"id": "q03", "split": "dev", "question": "Where do fourth graders learn to use a protractor?", "expected": ["MATH 4.7C"]}
+{"id": "q04", "split": "dev", "question": "Which kindergarten standard is about identifying coins?", "expected": ["MATH K.4"]}
+{"id": "q05", "split": "dev", "question": "How do second graders tell time to the minute?", "expected": ["MATH 2.9G"]}
+{"id": "q06", "split": "dev", "question": "Fifth grade standards about the volume of a box", "expected": ["MATH 5.6A", "MATH 5.6B", "MATH 5.4G"]}
+{"id": "q07", "split": "dev", "question": "Which standard is about prime and composite numbers?", "expected": ["MATH 5.4A"]}
+{"id": "q08", "split": "dev", "question": "Adding fractions with unlike denominators", "expected": ["MATH 5.3H"]}
+{"id": "q09", "split": "dev", "question": "What do first graders learn about halves and fourths?", "expected": ["MATH 1.6G", "MATH 1.6H"]}
+{"id": "q10", "split": "dev", "question": "Rounding whole numbers to a given place value in fourth grade", "expected": ["MATH 4.2D"]}
+{"id": "q11", "split": "dev", "question": "Teaching kindergarteners the difference between wants and needs", "expected": ["MATH K.9D"]}
+{"id": "q12", "split": "dev", "question": "Finding the perimeter of a polygon when a side length is missing", "expected": ["MATH 3.7B"]}
+{"id": "q13", "split": "dev", "question": "Area of rectangles in third grade", "expected": ["MATH 3.6C", "MATH 3.6D"]}
+{"id": "q14", "split": "dev", "question": "Graphing ordered pairs in the first quadrant", "expected": ["MATH 5.8B", "MATH 5.8C", "MATH 5.8A"]}
+{"id": "q15", "split": "dev", "question": "Balancing a budget in fifth grade", "expected": ["MATH 5.10E", "MATH 5.10F"]}
+{"id": "q16", "split": "dev", "question": "Skip counting by twos, fives and tens in first grade", "expected": ["MATH 1.5B", "MATH 1.4C"]}
+{"id": "q17", "split": "dev", "question": "Even and odd numbers in second grade", "expected": ["MATH 2.7A"]}
+{"id": "q18", "split": "dev", "question": "Recalling multiplication facts up to 10 by 10", "expected": ["MATH 3.4F"]}
+{"id": "q19", "split": "dev", "question": "Frequency tables and dot plots in grade 4", "expected": ["MATH 4.9A", "MATH 4.9B"]}
+{"id": "q20", "split": "dev", "question": "Decimals to the hundredths on a number line in fourth grade", "expected": ["MATH 4.2H", "MATH 4.3G"]}
+{"id": "q21", "split": "dev", "question": "What is the capital of Texas?", "expected": []}
+{"id": "q23", "split": "dev", "question": "Explain photosynthesis for fifth graders", "expected": []}
+{"id": "q24", "split": "dev", "question": "What is the slope of a line?", "expected": []}
+{"id": "q25", "split": "dev", "question": "Which standard covers solving quadratic equations?", "expected": []}
+{"id": "q26", "split": "dev", "question": "Who wrote the Texas constitution?", "expected": []}
+{"id": "q27", "split": "test", "question": "How do fifth graders round decimals?", "expected": ["MATH 5.2C"]}
+{"id": "q28", "split": "test", "question": "Dividing a unit fraction by a whole number", "expected": ["MATH 5.3J", "MATH 5.3L"]}
+{"id": "q29", "split": "test", "question": "Which standard is about lines of symmetry?", "expected": ["MATH 4.6B"]}
+{"id": "q30", "split": "test", "question": "What do kindergarteners learn about comparing groups of objects up to twenty?", "expected": ["MATH K.2G", "MATH K.2H"]}
+{"id": "q31", "split": "test", "question": "Solving addition word problems with an unknown number in first grade", "expected": ["MATH 1.5F", "MATH 1.5D"]}
+{"id": "q32", "split": "test", "question": "Converting between measurement units in fourth grade", "expected": ["MATH 4.8B"]}
+{"id": "q33", "split": "test", "question": "Estimating sums by rounding or using compatible numbers in third grade", "expected": ["MATH 3.4B"]}
+{"id": "q34", "split": "test", "question": "Second grade counting a collection of coins up to one dollar", "expected": ["MATH 2.5A", "MATH 2.5B"]}
+{"id": "q35", "split": "test", "question": "What is the difference between gross income and net income?", "expected": ["MATH 5.10B"]}
+{"id": "q36", "split": "test", "question": "Standards about parallel and perpendicular lines", "expected": ["MATH 4.6A", "MATH 4.6D"]}
+{"id": "q37", "split": "test", "question": "Bar graphs with a scale in third grade", "expected": ["MATH 3.8A"]}
+{"id": "q38", "split": "test", "question": "Dividing by a two-digit divisor", "expected": ["MATH 5.3C", "MATH 5.3G"]}
+{"id": "q39", "split": "test", "question": "What is a unit cube?", "expected": ["MATH 5.6A"]}
+{"id": "q40", "split": "test", "question": "Adding and subtracting time intervals in minutes", "expected": ["MATH 3.7C"]}
+{"id": "q41", "split": "test", "question": "Kindergarten counting forward and backward to 20", "expected": ["MATH K.2A"]}
+{"id": "q42", "split": "test", "question": "Borrowing and lending in second grade", "expected": ["MATH 2.11D", "MATH 2.11E"]}
+{"id": "q43", "split": "test", "question": "Classifying two-dimensional figures in a hierarchy of sets and subsets", "expected": ["MATH 5.5"]}
+{"id": "q44", "split": "test", "question": "Using strip diagrams to model multi-step problems", "expected": ["MATH 4.5A", "MATH 3.5B"]}
+{"id": "q45", "split": "test", "question": "Input-output tables and number patterns", "expected": ["MATH 4.5B"]}
+{"id": "q46", "split": "test", "question": "Writing a number with the cent symbol", "expected": ["MATH 1.4B"]}
+{"id": "q48", "split": "test", "question": "Explain the Pythagorean theorem", "expected": []}
+{"id": "q49", "split": "test", "question": "How do I convert Celsius to Fahrenheit?", "expected": []}
+{"id": "q51", "split": "test", "question": "How many questions are on the STAAR reading test?", "expected": []}
+{"id": "q53", "split": "dev", "question": "How do kindergarteners learn to produce rhyming words?", "expected": ["ELAR K.2A"]}
+{"id": "q54", "split": "test", "question": "Second graders writing personal narratives and poetry", "expected": ["ELAR 2.12A"]}
+{"id": "q55", "split": "dev", "question": "Fifth grade simile and metaphor in an author's craft", "expected": ["ELAR 5.10D", "ELAR 5.9B"]}
+{"id": "q56", "split": "test", "question": "Fourth graders making inferences with text evidence", "expected": ["ELAR 4.6F", "ELAR 4.8A"]}
+{"id": "q57", "split": "dev", "question": "Third grade editing for subject-verb agreement", "expected": ["ELAR 3.11D"]}
+{"id": "q58", "split": "test", "question": "Alphabetizing words and using a dictionary in second grade", "expected": ["ELAR 2.2D"]}
+{"id": "q59", "split": "dev", "question": "Kindergarten print awareness front cover and title page", "expected": ["ELAR K.2D"]}
+{"id": "q60", "split": "test", "question": "Third grade identifying everyday examples of energy", "expected": ["SCI 3.8A"]}
+{"id": "q61", "split": "dev", "question": "Fourth grade water cycle and weather versus climate", "expected": ["SCI 4.10A", "SCI 4.10C"]}
+{"id": "q62", "split": "test", "question": "Second graders learning the parts of a plant", "expected": ["SCI 2.13A"]}
+{"id": "q63", "split": "dev", "question": "How do fifth graders study changes in an ecosystem and food web?", "expected": ["SCI 5.12B", "SCI 5.12A"]}
+{"id": "q64", "split": "test", "question": "Kindergarten simple plant life cycle from seed to fruit", "expected": ["SCI K.13C"]}
+{"id": "q65", "split": "dev", "question": "First grade pushes and pulls changing the speed of an object", "expected": ["SCI 1.7A", "SCI 1.7B"]}
+{"id": "q66", "split": "test", "question": "Fourth grade fossils and past environments", "expected": ["SCI 4.12C"]}
+{"id": "q67", "split": "dev", "question": "Which standard covers the Alamo and the Texas Revolution?", "expected": ["SS 4.3A"]}
+{"id": "q68", "split": "test", "question": "Fifth grade reasons for the Bill of Rights", "expected": ["SS 5.14C"]}
+{"id": "q69", "split": "dev", "question": "Third graders using a map scale and cardinal directions", "expected": ["SS 3.4A", "SS 3.4B"]}
+{"id": "q70", "split": "test", "question": "Fourth grade physical regions of Texas", "expected": ["SS 4.6A", "SS 4.6B"]}
+{"id": "q71", "split": "dev", "question": "Third grade using voting for group decisions", "expected": ["SS 3.9E"]}
+{"id": "q72", "split": "test", "question": "Second grade how work provides income to buy goods and services", "expected": ["SS 2.6A"]}
+{"id": "q73", "split": "dev", "question": "Kindergarten hand washing and brushing teeth", "expected": ["HEALTH K.2B"]}
+{"id": "q74", "split": "test", "question": "First grade identifying food groups", "expected": ["HEALTH 1.6C"]}
+{"id": "q75", "split": "dev", "question": "Kindergarten identifying their own feelings and emotions", "expected": ["HEALTH K.3A"]}
+{"id": "q76", "split": "test", "question": "Kindergarten responding to emergencies and reporting to a trusted adult", "expected": ["HEALTH K.8A"]}
+{"id": "q77", "split": "dev", "question": "First grade harmful effects of alcohol and tobacco", "expected": ["HEALTH 1.14B"]}
+{"id": "q78", "split": "dev", "question": "Kindergarten practice dribbling with one hand", "expected": ["PE K.3C"]}
+{"id": "q79", "split": "test", "question": "Third grade entering and exiting a turned long rope", "expected": ["PE 3.3I"]}
+{"id": "q80", "split": "dev", "question": "Second grade hand dribbling while walking", "expected": ["PE 2.3C"]}
+{"id": "q81", "split": "test", "question": "Kindergarten exercises that promote health-related fitness", "expected": ["PE K.8C"]}
+{"id": "q82", "split": "dev", "question": "Kindergarten create artworks using lines, shapes, colors and textures", "expected": ["ART K.2A"]}
+{"id": "q83", "split": "test", "question": "Third grade art careers such as architects and animators", "expected": ["ART 3.3C"]}
+{"id": "q84", "split": "dev", "question": "Kindergarten identify steady beat in music", "expected": ["MUSIC K.4B"]}
+{"id": "q85", "split": "test", "question": "First grade identify the instrument families", "expected": ["MUSIC 1.1B"]}
+{"id": "q86", "split": "dev", "question": "Second grade create melodic phrases using known pitches", "expected": ["MUSIC 2.4B"]}
+{"id": "q87", "split": "test", "question": "Second grade narrative pantomime and dramatic play", "expected": ["THEATRE 2.2B"]}
+{"id": "q88", "split": "dev", "question": "Kindergarten appropriate audience behavior in theatre", "expected": ["THEATRE K.5A"]}
+{"id": "q89", "split": "test", "question": "Kindergarten make costumes from cardboard or newspaper", "expected": ["THEATRE K.3B"]}
+{"id": "q90", "split": "dev", "question": "First grade create a simple algorithm for an everyday task", "expected": ["TECH 1.1C"]}
+{"id": "q91", "split": "test", "question": "Kindergarten keyboarding hand position and typing keys", "expected": ["TECH K.8D", "TECH K.8E"]}
+{"id": "q92", "split": "dev", "question": "Kindergarten what information is safe to share online", "expected": ["TECH K.7B"]}
+{"id": "q93", "split": "test", "question": "Second grade conducting a basic internet search with keywords", "expected": ["TECH 2.5B"]}
+{"id": "q94", "split": "dev", "question": "Explain the periodic table of the elements", "expected": []}
+{"id": "q95", "split": "test", "question": "How do I conjugate Spanish verbs in third grade?", "expected": []}
+{"id": "q96", "split": "test", "question": "What does the Texas state test cost per student?", "expected": []}
