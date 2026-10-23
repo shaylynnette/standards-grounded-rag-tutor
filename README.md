@@ -4,6 +4,8 @@
 
 **Outcome:** the right standard is the top result for 80% of held-out questions and in the top three for 100%; 100% of off-topic questions are declined; 0 of 16 adversarial inputs were obeyed. Limits are listed below.
 
+**License:** [PolyForm Noncommercial 1.0.0](LICENSE). Free to read, run and learn from; commercial use needs a license from me (meshayla@kempadvisory.com).
+
 ## Quick start (clean clone)
 ```
 git clone <this repo> && cd <this repo>
