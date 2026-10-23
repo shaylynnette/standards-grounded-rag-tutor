@@ -6,6 +6,7 @@ import re
 from dataclasses import dataclass
 from pathlib import Path
 
+from .normalize import correct_spelling, extract_code, normalize_grades
 from .store import connect
 
 THRESHOLDS = Path(__file__).with_name("thresholds.json")
@@ -92,15 +93,23 @@ class Hit:
 
 
 _VOCAB: set[str] | None = None
+_WORDS: set[str] | None = None
 
 
 def corpus_vocab(con) -> set[str]:
-    global _VOCAB
+    global _VOCAB, _WORDS
     if _VOCAB is None:
-        _VOCAB = set()
+        _VOCAB, _WORDS = set(), set()
         for r in con.execute("SELECT text, strand_text FROM standards"):
-            _VOCAB |= {stem(w) for w in re.findall(r"[a-z0-9]+", (r[0] + " " + r[1]).lower())}
+            ws = re.findall(r"[a-z0-9]+", (r[0] + " " + r[1]).lower())
+            _WORDS |= set(ws)
+            _VOCAB |= {stem(w) for w in ws}
     return _VOCAB
+
+
+def corpus_words(con) -> set[str]:
+    corpus_vocab(con)
+    return _WORDS or set()
 
 
 def load_thresholds() -> dict:
@@ -109,12 +118,41 @@ def load_thresholds() -> dict:
     return {"min_coverage": 0.0, "min_score": 0.0, "min_vocab": 0.0}
 
 
+def _code_hits(con, code, subject, k) -> list[Hit]:
+    grade, strand, letter = code
+    sql = "SELECT * FROM standards WHERE grade = ? AND strand_number = ?"
+    args: list = [grade, strand]
+    if subject:
+        sql += " AND subject = ?"
+        args.append(subject)
+    out = []
+    for r in con.execute(sql + " ORDER BY rowid", args):
+        m = re.search(r"\s[K1-5]\.(\d+)([A-Z]?)$", r["teks_code"])
+        if m and (letter is None or m.group(2) == letter):
+            out.append(Hit(r["id"], r["subject"], r["subject_name"], r["teks_code"], r["citation"], r["grade"], r["strand"],
+                           r["text"], r["strand_text"], r["source"], 100.0, 1.0, 1.0))
+    return out[:k]
+
+
 def search(question: str, k: int = 5, db=None) -> tuple[list[Hit], dict]:
     con = db or connect()
-    grade = detect_grade(question)
-    subject, rest = detect_subject(question)
+    q = normalize_grades(question.lower())
+    info: dict = {"grade_filter": None, "subject_filter": None, "query_terms": [], "code": None, "corrected": []}
+    other = sum(1 for t in tokens(q) if t.isalpha())
+    code, q_nocode = extract_code(q, other)
+    if code:
+        subj, _ = detect_subject(q_nocode)
+        hits = _code_hits(con, code, subj, k)
+        if hits:
+            info.update(grade_filter=code[0], subject_filter=subj, code=f"{code[0]}.{code[1]}{code[2] or ''}")
+            return hits, info
+        q = q_nocode
+    grade = detect_grade(q)
+    subject, rest = detect_subject(q)
     toks = tokens(rest)
-    info = {"grade_filter": grade, "subject_filter": subject, "query_terms": toks}
+    vocab_stems = corpus_vocab(con)
+    toks, fixed = correct_spelling(toks, corpus_words(con), lambda t: stem(t) in vocab_stems)
+    info.update(grade_filter=grade, subject_filter=subject, query_terms=toks, corrected=fixed)
     if not toks:
         return [], info
     match = " OR ".join(f'"{t}"' for t in dict.fromkeys(toks))
@@ -130,7 +168,7 @@ def search(question: str, k: int = 5, db=None) -> tuple[list[Hit], dict]:
     sql += " ORDER BY rank LIMIT ?"
     args.append(k)
     qstems = {stem(t) for t in toks}
-    vocab = len(qstems & corpus_vocab(con)) / len(qstems)
+    vocab = len(qstems & vocab_stems) / len(qstems)
     hits = []
     for r in con.execute(sql, args):
         words = {stem(w) for w in re.findall(r"[a-z0-9]+", (r["text"] + " " + r["strand_text"]).lower())}

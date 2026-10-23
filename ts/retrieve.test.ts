@@ -52,3 +52,21 @@ test("subject detection and filter", () => {
   const a = ask(idx, "third grade science energy");
   assert.ok(a.answered && a.matches.every((m) => m.teks_code.startsWith("SCI ")));
 });
+
+test("the same thing typed different ways is understood the same way", () => {
+  const phr = readFileSync(new URL("../eval/phrasing.jsonl", import.meta.url), "utf8").trim().split("\n").map((l) => JSON.parse(l));
+  for (const p of phr) {
+    const u = idx.search(p.q, 5).understood;
+    assert.equal(u.grade, p.grade, p.q);
+    assert.equal(u.code, p.code, p.q);
+  }
+  const base = idx.search("fifth grade rounding decimals").hits.slice(0, 3).map((h) => h.teks_code);
+  for (const q of ["5th grade rounding decimals", "Gr. 5 rounding decimals", "G5 rounding decimals"])
+    assert.deepEqual(idx.search(q).hits.slice(0, 3).map((h) => h.teks_code), base, q);
+});
+
+test("TEKS code lookup, decimals are not codes, spelling fixes are reported", () => {
+  assert.deepEqual(idx.search("TEKS 5.3A math").hits.map((h) => h.teks_code), ["MATH 5.3A"]);
+  assert.equal(idx.search("add 5.3 and 2.1 decimals").understood.code, null);
+  assert.deepEqual(idx.search("fifth grade multiplicaton").understood.corrected, [["multiplicaton", "multiplication"]]);
+});

@@ -22,6 +22,7 @@ Ask a question in plain language; get the matching TEKS standard with its 19 TAC
 1. `tutor/parse_all.py` parses each subject's "Knowledge and skills" into records (id, subject, TEKS code, citation, grade, strand, text). A regression test pins the counts; the math records match an earlier independent parse (287 of 288 identical; the other differs only by a double period in TEA's own PDF).
 2. `tutor/store.py` loads them into SQLite with an FTS5 index (porter stemming).
 3. `tutor/retrieve.py` ranks with BM25, filters by grade when the question names one, and decides **answer vs decline** from three signals: BM25 score, passage coverage, and vocabulary coverage (share of question words that exist anywhere in the standards).
+4. `tutor/normalize.py` (and `ts/normalize.ts`) understand how teachers type before retrieval: "fifth grade", "5th grade", "grade 5", "Gr. 5", "G5", "grade five" and "kinder" are one grade; "TEKS 5.3A", "5.3(A)" and "5 3 a" look up that exact standard; a bare decimal like 5.3 is not mistaken for a code; and a word that is not in the standards is fixed only when exactly one standards word is one typing slip away, with the fix reported in the answer (`understood.corrected`). `eval/phrasing.jsonl` pins 38 phrasings, and the Python and TypeScript versions are tested against each other.
 4. `tutor/answer.py` is extractive: it quotes the retrieved standard and cites it, so nothing is invented. A `Generator` protocol lets an LLM be plugged in later; it must only see retrieved passages.
 
 ```

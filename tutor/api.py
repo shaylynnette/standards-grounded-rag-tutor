@@ -25,6 +25,8 @@ def respond(question: str) -> dict:
         "matches": [{"teks_code": h.teks_code, "subject": h.subject_name, "citation": h.citation, "grade": h.grade,
                      "strand": h.strand, "text": h.text, "score": round(h.score, 2)} for h in r.hits[:3]]
         if r.answered else [],
+        "understood": {"grade": r.info.get("grade_filter"), "subject": r.info.get("subject_filter"),
+                       "code": r.info.get("code"), "corrected": r.info.get("corrected", [])},
         "source": "Texas Essential Knowledge and Skills, K-5, revised June 2024 (TEA; published for information only)",
     }
 

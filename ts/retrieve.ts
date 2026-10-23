@@ -1,12 +1,14 @@
 // TypeScript port of tutor/retrieve.py + tutor/answer.py: BM25 over the standards, answer-or-decline.
 // No dependencies, so it runs as a Netlify Function and in Node's built-in test runner.
 import { porter } from "./porter.ts";
+import { correctSpelling, extractCode, normalizeGrades } from "./normalize.ts";
 
 export interface Standard {
   id: string; subject: string; subject_name: string; teks_code: string; citation: string; grade: string; strand: string;
   strand_text: string; text: string; source: string;
 }
 export interface Hit extends Standard { score: number; coverage: number; vocab: number }
+export interface Understood { grade: string | null; subject: string | null; code: string | null; corrected: [string, string][] }
 export interface Thresholds { min_coverage: number; min_score: number; min_vocab: number }
 
 export const THRESHOLDS: Thresholds = { min_coverage: 0.0, min_score: 0.0, min_vocab: 0.8 };
@@ -72,7 +74,7 @@ const K1 = 1.2, B = 0.75, W_TEXT = 4.0, W_STRAND = 1.0;
 interface Doc { std: Standard; tf: Map<string, number>; len: number; stems: Set<string> }
 
 export class Index {
-  docs: Doc[]; df = new Map<string, number>(); avgLen: number; vocab = new Set<string>();
+  docs: Doc[]; df = new Map<string, number>(); avgLen: number; vocab = new Set<string>(); wordSet = new Set<string>();
 
   constructor(standards: Standard[]) {
     this.docs = standards.map((std) => {
@@ -83,17 +85,45 @@ export class Index {
       for (const w of sw) add(porter(w), W_STRAND);
       const stems = new Set([...tw, ...sw].map(stem));
       stems.forEach((s) => this.vocab.add(s));
+      for (const w of [...tw, ...sw]) this.wordSet.add(w);
       return { std, tf, len: tw.length + sw.length, stems };
     });
     for (const d of this.docs) for (const t of d.tf.keys()) this.df.set(t, (this.df.get(t) ?? 0) + 1);
     this.avgLen = this.docs.reduce((a, d) => a + d.len, 0) / this.docs.length;
   }
 
-  search(question: string, k = 5): { hits: Hit[]; grade: string | null; terms: string[] } {
-    const grade = detectGrade(question);
-    const { subject, rest } = detectSubject(question);
-    const toks = [...new Set(tokens(rest))];
-    if (!toks.length) return { hits: [], grade, terms: toks };
+  codeHits(code: { grade: string; strand: number; letter: string | null }, subject: string | null, k: number): Hit[] {
+    const out: Hit[] = [];
+    for (const d of this.docs) {
+      const m = d.std.teks_code.match(/\s([K1-5])\.(\d+)([A-Z]?)$/);
+      if (!m || m[1] !== code.grade || parseInt(m[2], 10) !== code.strand) continue;
+      if (code.letter && m[3] !== code.letter) continue;
+      if (subject && d.std.subject !== subject) continue;
+      out.push({ ...d.std, score: 100, coverage: 1, vocab: 1 });
+    }
+    return out.slice(0, k);
+  }
+
+  search(question: string, k = 5): { hits: Hit[]; grade: string | null; terms: string[]; understood: Understood } {
+    let q = normalizeGrades(question.toLowerCase());
+    const understood: Understood = { grade: null, subject: null, code: null, corrected: [] };
+    const other = tokens(q).filter((t) => /^[a-z]+$/.test(t)).length;
+    const { code, rest: noCode } = extractCode(q, other);
+    if (code) {
+      const subj = detectSubject(noCode).subject;
+      const hits = this.codeHits(code, subj, k);
+      if (hits.length) {
+        Object.assign(understood, { grade: code.grade, subject: subj, code: `${code.grade}.${code.strand}${code.letter ?? ""}` });
+        return { hits, grade: code.grade, terms: [], understood };
+      }
+      q = noCode;
+    }
+    const grade = detectGrade(q);
+    const { subject, rest } = detectSubject(q);
+    const fix = correctSpelling([...new Set(tokens(rest))], this.wordSet, (t) => this.vocab.has(stem(t)));
+    const toks = [...new Set(fix.tokens)];
+    Object.assign(understood, { grade, subject, corrected: fix.fixed });
+    if (!toks.length) return { hits: [], grade, terms: toks, understood };
     const terms = toks.map(porter);
     const qstems = new Set(toks.map(stem));
     const vocab = [...qstems].filter((s) => this.vocab.has(s)).length / qstems.size;
@@ -120,7 +150,7 @@ export class Index {
       coverage: [...qstems].filter((s) => d.stems.has(s)).length / qstems.size,
       vocab,
     }));
-    return { hits, grade, terms: toks };
+    return { hits, grade, terms: toks, understood };
   }
 }
 
@@ -135,14 +165,14 @@ export const DECLINE =
 export interface Answer {
   answered: boolean; answer: string; citations: string[];
   matches: { teks_code: string; subject: string; citation: string; grade: string; strand: string; text: string }[];
-  source: string;
+  source: string; understood: Understood;
 }
 
 export function ask(index: Index, question: string): Answer {
   const q = question.slice(0, 300);
-  const { hits } = index.search(q, 5);
+  const { hits, understood } = index.search(q, 5);
   const source = "Texas Essential Knowledge and Skills, K-5, revised June 2024 (TEA; published for information only)";
-  if (!canAnswer(hits)) return { answered: false, answer: DECLINE, citations: [], matches: [], source };
+  if (!canAnswer(hits)) return { answered: false, answer: DECLINE, citations: [], matches: [], source, understood };
   const top = hits[0];
   const grade = top.grade === "K" ? "Kindergarten" : `Grade ${top.grade}`;
   const whole = top.text === top.strand_text;
@@ -154,6 +184,6 @@ export function ask(index: Index, question: string): Answer {
   return {
     answered: true, answer: lines.join("\n"), citations: hits.slice(0, 3).map((h) => h.citation),
     matches: hits.slice(0, 3).map((h) => ({ teks_code: h.teks_code, subject: h.subject_name, citation: h.citation, grade: h.grade, strand: h.strand, text: h.text })),
-    source,
+    source, understood,
   };
 }

@@ -16,7 +16,8 @@ ROOT = Path(__file__).resolve().parent.parent
 class ParityTests(unittest.TestCase):
     def test_same_results_as_python(self):
         out = subprocess.run(["node", "ts/parity.ts"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
-        ts = {r["id"]: r for r in json.loads(out)}
+        data = json.loads(out)
+        ts = {r["id"]: r for r in data["golden"]}
         con = connect()
         bad = []
         for line in (ROOT / "eval" / "golden.jsonl").read_text().splitlines():
@@ -27,3 +28,14 @@ class ParityTests(unittest.TestCase):
             if (t["codes"], t["answered"]) != py:
                 bad.append((g["id"], py, (t["codes"], t["answered"])))
         self.assertEqual(bad, [], f"{len(bad)} mismatches")
+
+    def test_phrasing_same_as_python(self):
+        out = subprocess.run(["node", "ts/parity.ts"], cwd=ROOT, capture_output=True, text=True, check=True).stdout
+        con = connect()
+        bad = []
+        for t in json.loads(out)["phrasing"]:
+            hits, info = search(t["q"], k=5, db=con)
+            py = ([h.teks_code for h in hits], info["grade_filter"], info["code"])
+            if (t["codes"], t["grade"], t["code"]) != py:
+                bad.append((t["q"], py, (t["codes"], t["grade"], t["code"])))
+        self.assertEqual(bad, [])
