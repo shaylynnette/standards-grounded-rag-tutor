@@ -1,0 +1,52 @@
+{"id": "q01", "split": "dev", "question": "What do third graders learn about equivalent fractions?", "expected": ["3.3F", "3.3G"]}
+{"id": "q02", "split": "dev", "question": "Which standard covers multiplying a three-digit number by a two-digit number?", "expected": ["5.3B"]}
+{"id": "q03", "split": "dev", "question": "Where do fourth graders learn to use a protractor?", "expected": ["4.7C"]}
+{"id": "q04", "split": "dev", "question": "Which kindergarten standard is about identifying coins?", "expected": ["K.4"]}
+{"id": "q05", "split": "dev", "question": "How do second graders tell time to the minute?", "expected": ["2.9G"]}
+{"id": "q06", "split": "dev", "question": "Fifth grade standards about the volume of a box", "expected": ["5.6A", "5.6B", "5.4G"]}
+{"id": "q07", "split": "dev", "question": "Which standard is about prime and composite numbers?", "expected": ["5.4A"]}
+{"id": "q08", "split": "dev", "question": "Adding fractions with unlike denominators", "expected": ["5.3H"]}
+{"id": "q09", "split": "dev", "question": "What do first graders learn about halves and fourths?", "expected": ["1.6G", "1.6H"]}
+{"id": "q10", "split": "dev", "question": "Rounding whole numbers to a given place value in fourth grade", "expected": ["4.2D"]}
+{"id": "q11", "split": "dev", "question": "Teaching kindergarteners the difference between wants and needs", "expected": ["K.9D"]}
+{"id": "q12", "split": "dev", "question": "Finding the perimeter of a polygon when a side length is missing", "expected": ["3.7B"]}
+{"id": "q13", "split": "dev", "question": "Area of rectangles in third grade", "expected": ["3.6C", "3.6D"]}
+{"id": "q14", "split": "dev", "question": "Graphing ordered pairs in the first quadrant", "expected": ["5.8B", "5.8C", "5.8A"]}
+{"id": "q15", "split": "dev", "question": "Balancing a budget in fifth grade", "expected": ["5.10E", "5.10F"]}
+{"id": "q16", "split": "dev", "question": "Skip counting by twos, fives and tens in first grade", "expected": ["1.5B", "1.4C"]}
+{"id": "q17", "split": "dev", "question": "Even and odd numbers in second grade", "expected": ["2.7A"]}
+{"id": "q18", "split": "dev", "question": "Recalling multiplication facts up to 10 by 10", "expected": ["3.4F"]}
+{"id": "q19", "split": "dev", "question": "Frequency tables and dot plots in grade 4", "expected": ["4.9A", "4.9B"]}
+{"id": "q20", "split": "dev", "question": "Decimals to the hundredths on a number line in fourth grade", "expected": ["4.2H", "4.3G"]}
+{"id": "q21", "split": "dev", "question": "What is the capital of Texas?", "expected": null}
+{"id": "q22", "split": "dev", "question": "How do I teach reading comprehension to second graders?", "expected": null}
+{"id": "q23", "split": "dev", "question": "Explain photosynthesis for fifth graders", "expected": null}
+{"id": "q24", "split": "dev", "question": "What is the slope of a line?", "expected": null}
+{"id": "q25", "split": "dev", "question": "Which standard covers solving quadratic equations?", "expected": null}
+{"id": "q26", "split": "dev", "question": "Who wrote the Texas constitution?", "expected": null}
+{"id": "q27", "split": "test", "question": "How do fifth graders round decimals?", "expected": ["5.2C"]}
+{"id": "q28", "split": "test", "question": "Dividing a unit fraction by a whole number", "expected": ["5.3J", "5.3L"]}
+{"id": "q29", "split": "test", "question": "Which standard is about lines of symmetry?", "expected": ["4.6B"]}
+{"id": "q30", "split": "test", "question": "What do kindergarteners learn about comparing groups of objects up to twenty?", "expected": ["K.2G", "K.2H"]}
+{"id": "q31", "split": "test", "question": "Solving addition word problems with an unknown number in first grade", "expected": ["1.5F", "1.5D"]}
+{"id": "q32", "split": "test", "question": "Converting between measurement units in fourth grade", "expected": ["4.8B"]}
+{"id": "q33", "split": "test", "question": "Estimating sums by rounding or using compatible numbers in third grade", "expected": ["3.4B"]}
+{"id": "q34", "split": "test", "question": "Second grade counting a collection of coins up to one dollar", "expected": ["2.5A", "2.5B"]}
+{"id": "q35", "split": "test", "question": "What is the difference between gross income and net income?", "expected": ["5.10B"]}
+{"id": "q36", "split": "test", "question": "Standards about parallel and perpendicular lines", "expected": ["4.6A", "4.6D"]}
+{"id": "q37", "split": "test", "question": "Bar graphs with a scale in third grade", "expected": ["3.8A"]}
+{"id": "q38", "split": "test", "question": "Dividing by a two-digit divisor", "expected": ["5.3C", "5.3G"]}
+{"id": "q39", "split": "test", "question": "What is a unit cube?", "expected": ["5.6A"]}
+{"id": "q40", "split": "test", "question": "Adding and subtracting time intervals in minutes", "expected": ["3.7C"]}
+{"id": "q41", "split": "test", "question": "Kindergarten counting forward and backward to 20", "expected": ["K.2A"]}
+{"id": "q42", "split": "test", "question": "Borrowing and lending in second grade", "expected": ["2.11D", "2.11E"]}
+{"id": "q43", "split": "test", "question": "Classifying two-dimensional figures in a hierarchy of sets and subsets", "expected": ["5.5"]}
+{"id": "q44", "split": "test", "question": "Using strip diagrams to model multi-step problems", "expected": ["4.5A", "3.5B"]}
+{"id": "q45", "split": "test", "question": "Input-output tables and number patterns", "expected": ["4.5B"]}
+{"id": "q46", "split": "test", "question": "Writing a number with the cent symbol", "expected": ["1.4B"]}
+{"id": "q47", "split": "test", "question": "What is the history of the Alamo?", "expected": null}
+{"id": "q48", "split": "test", "question": "Explain the Pythagorean theorem", "expected": null}
+{"id": "q49", "split": "test", "question": "How do I convert Celsius to Fahrenheit?", "expected": null}
+{"id": "q50", "split": "test", "question": "What are good phonics activities for first grade?", "expected": null}
+{"id": "q51", "split": "test", "question": "How many questions are on the STAAR reading test?", "expected": null}
+{"id": "q52", "split": "test", "question": "Which standard covers photosynthesis and plant life cycles?", "expected": null}
